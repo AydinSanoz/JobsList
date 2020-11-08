@@ -1,17 +1,22 @@
 import {StyleSheet} from 'react-native';
 
 
-export topicItem = StyleSheet.create({
+export const topicItem = StyleSheet.create({
     container :{
-        //null
+       margin:10,
+       padding:10,
+       borderRadius : 10,
+       backgroundColor : '#e0e0e0'
     },
     text:{
-       // null
+       fontSize : 20,
+       fontWeight :'bold',
+
     }
 
 })
 
-export jobItem = StyleSheet.create({
+export const jobItem = StyleSheet.create({
     container:{
         //null
     },

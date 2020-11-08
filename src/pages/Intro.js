@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, Text, ScrollView } from 'react-native';
+import { SafeAreaView, View, Text, ScrollView, Alert } from 'react-native';
 import { TopicItem } from '../components';
 
 const topics = [
@@ -55,9 +55,15 @@ export const Intro = () => {
     <SafeAreaView>
       <View>
         <Text>Intro Page</Text>
-        <ScrollView>
-          {topics.map((res) => { 
-            return <TopicItem key = {res.id} item = {res}/>;
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {topics.map((res) => {
+            return(
+                <TopicItem 
+                    key={res.id} 
+                    item={res}
+                    onSelect = {()=>alert('hello')} 
+
+            />);
           })}
         </ScrollView>
       </View>
