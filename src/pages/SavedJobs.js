@@ -1,11 +1,11 @@
 import React from 'react';
 import { SafeAreaView, View , Text } from 'react-native';
 
-export const Intro = () =>{
+export const SavedJobs  = () =>{
     return(
         <SafeAreaView>
             <View>
-                <Text>Intro Page</Text>
+                <Text>SavedJobs Page</Text>
             </View>
         </SafeAreaView>
     )
