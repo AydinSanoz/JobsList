@@ -50,7 +50,13 @@ const topics = [
   },
 ];
 
-export const Intro = () => {
+export const Intro = (props) => {
+    function SelectLanguage(lang){
+    console.log("SelectLanguage -> lang", lang)
+        
+        props.navigation.navigate('Jobs', {selectedLanguage : lang})
+    
+    }
   return (
     <SafeAreaView>
       <View>
@@ -61,7 +67,7 @@ export const Intro = () => {
                 <TopicItem 
                     key={res.id} 
                     item={res}
-                    onSelect = {()=>alert('hello')} 
+                    onSelect = {()=>SelectLanguage(res.name)} 
 
             />);
           })}
