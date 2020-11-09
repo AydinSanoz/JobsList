@@ -1,85 +1,76 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, View, Text, ScrollView, Alert } from 'react-native';
-import { TopicItem } from '../components';
+import {
+  SafeAreaView,
+  View,
+  Text,
+  ScrollView,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
+import { JobItem, TopicItem } from '../components';
 import Axios from 'axios';
-
-const topics = [
-  {
-    id: 0,
-    name: 'Java',
-    color: 'fb5607',
-  },
-  {
-    id: 1,
-    name: 'Python',
-    color: '007f5f',
-  },
-  {
-    id: 2,
-    name: 'Javascript',
-    color: 'ffb703',
-  },
-  {
-    id: 3,
-    name: '.NET',
-    color: '023e7d',
-  },
-  {
-    id: 4,
-    name: 'Dart',
-    color: '001845',
-  },
-  {
-    id: 5,
-    name: 'Go',
-    color: 'f8961e',
-  },
-  {
-    id: 6,
-    name: 'Ruby',
-    color: 'e63946',
-  },
-  {
-    id: 7,
-    name: 'C',
-    color: 'fb8b24',
-  },
-  {
-    id: 8,
-    name: 'C++',
-    color: '06d6a0',
-  },
-];
+import Modal from 'react-native-modal';
 
 export const Intro = (props) => {
   const [jobsData, setJobsData] = useState([]);
-  
+  const [modalFlag, setModalFlag] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedJobs, setSelectedJobs] = useState()
+
   const fetchData = async () => {
     const { data } = await Axios.get('https://jobs.github.com/positions.json');
     setJobsData(data);
+    setIsLoading(false);
   };
   useEffect(() => {
     fetchData();
   }, []);
-  
-  
-  console.log("Intro -> jobsData", jobsData)
-  function onSelect(res){
-  console.log("onSelect -> res", res)
-    
-    alert(res.id)
+
+  function selectJob(res){
+    console.log("selectJob -> res", res)
+    setModalFlag(true)
+    setSelectedJobs(res)
   }
+
   return (
-    <SafeAreaView style = {{backgroundColor: 'black'}}>
-      <View>
-        <Text style = {{fontSize : 25, textAlign : 'center', fontWeight :'bold',color:'white'}}>JOBS LIST</Text>
-        <ScrollView showsHorizontalScrollIndicator={false} >
-          {jobsData.map((res) => {
-            return <TopicItem key={res.id} item={res.title} onSelect = {()=>{onSelect(res)}}/>;
-          })}
-          <TopicItem />
-        </ScrollView>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}>
+      <View style={{ flex: 1 }}>
+        <Text
+          style={{
+            fontSize: 25,
+            textAlign: 'center',
+            fontWeight: 'bold',
+            color: 'white',
+          }}>
+          🔥 JOB LIST 🔥
+        </Text>
+        {isLoading ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <ScrollView showsHorizontalScrollIndicator={false}>
+            {jobsData.map((res) => {
+            
+            
+              return (
+                <TopicItem
+                  
+                  response = {res}
+                  // onSelect={(res)=> console.log(res)}
+                />
+              );
+            })}
+
+            
+          </ScrollView>
+        )}
       </View>
+      <Modal 
+        isVisible={modalFlag}
+        onBackdropPress = {()=> setModalFlag(false)}
+
+      >
+        <JobItem  selectedJobs = {selectedJobs}/>
+      </Modal>
     </SafeAreaView>
   );
 };
