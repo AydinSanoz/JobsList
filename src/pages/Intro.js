@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, View, Text, ScrollView, Alert } from 'react-native';
 import { TopicItem } from '../components';
+import Axios from 'axios';
 
 const topics = [
   {
@@ -51,26 +52,32 @@ const topics = [
 ];
 
 export const Intro = (props) => {
-    function SelectLanguage(lang){
-    console.log("SelectLanguage -> lang", lang)
-        
-        props.navigation.navigate('Jobs', {selectedLanguage : lang})
+  const [jobsData, setJobsData] = useState([]);
+  
+  const fetchData = async () => {
+    const { data } = await Axios.get('https://jobs.github.com/positions.json');
+    setJobsData(data);
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+  
+  
+  console.log("Intro -> jobsData", jobsData)
+  function onSelect(res){
+  console.log("onSelect -> res", res)
     
-    }
+    alert(res.id)
+  }
   return (
-    <SafeAreaView>
+    <SafeAreaView style = {{backgroundColor: 'black'}}>
       <View>
-        <Text>Intro Page</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {topics.map((res) => {
-            return(
-                <TopicItem 
-                    key={res.id} 
-                    item={res}
-                    onSelect = {()=>SelectLanguage(res.name)} 
-
-            />);
+        <Text style = {{fontSize : 25, textAlign : 'center', fontWeight :'bold',color:'white'}}>JOBS LIST</Text>
+        <ScrollView showsHorizontalScrollIndicator={false} >
+          {jobsData.map((res) => {
+            return <TopicItem key={res.id} item={res.title} onSelect = {()=>{onSelect(res)}}/>;
           })}
+          <TopicItem />
         </ScrollView>
       </View>
     </SafeAreaView>
