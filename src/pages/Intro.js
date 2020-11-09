@@ -10,12 +10,13 @@ import {
 import { JobItem, TopicItem } from '../components';
 import Axios from 'axios';
 import Modal from 'react-native-modal';
+import {WebView} from 'react-native-webview'
 
 export const Intro = (props) => {
   const [jobsData, setJobsData] = useState([]);
   const [modalFlag, setModalFlag] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedJobs, setSelectedJobs] = useState()
+  const [selectedJobs, setSelectedJobs] = useState();
 
   const fetchData = async () => {
     const { data } = await Axios.get('https://jobs.github.com/positions.json');
@@ -26,12 +27,21 @@ export const Intro = (props) => {
     fetchData();
   }, []);
 
-  function selectJob(res){
-    console.log("selectJob -> res", res)
-    setModalFlag(true)
-    setSelectedJobs(res)
+  const selectJob = ((t) => {
+   
+    setSelectedJobs(t)
+    setModalFlag(true);
+    
   }
-
+  )
+  function onJobSave (){
+   
+    setModalFlag(false)
+  }
+  function onJobDetails(){
+    props.navigation.navigate('JobDetails', {selectedJobData : selectedJobs})
+    setModalFlag(false)
+  }
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}>
       <View style={{ flex: 1 }}>
@@ -49,27 +59,24 @@ export const Intro = (props) => {
         ) : (
           <ScrollView showsHorizontalScrollIndicator={false}>
             {jobsData.map((res) => {
-            
-            
               return (
                 <TopicItem
-                  
-                  response = {res}
-                  // onSelect={(res)=> console.log(res)}
+                  key = {res.id}
+                  response={res}
+                  onSelect={selectJob}
                 />
               );
             })}
-
-            
           </ScrollView>
         )}
       </View>
-      <Modal 
-        isVisible={modalFlag}
-        onBackdropPress = {()=> setModalFlag(false)}
+      <Modal isVisible={modalFlag} onBackdropPress={() => setModalFlag(false)}>
+        <JobItem 
+          selectedJobs={selectedJobs} 
+          onJobSave = {onJobSave} 
+          onJobDetails = {onJobDetails}
 
-      >
-        <JobItem  selectedJobs = {selectedJobs}/>
+        />
       </Modal>
     </SafeAreaView>
   );

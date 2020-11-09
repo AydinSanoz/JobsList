@@ -19,14 +19,14 @@ const colors = [
 // url: "https://jobs.github.com/positions/7ca67ead-c738-4c1b-ad4a-a95efb06be3d"
 
 export const TopicItem = (props) => {
-  console.log("TopicItem -> props.responseTitle", props.response.title)
 
   const randomIndex = Math.floor(Math.random() * 8 + 1);
 
   return (
     <TouchableOpacity 
       style={[topicItem.container, {backgroundColor: colors[randomIndex]}]} 
-      onPress={props.onSelect}>
+      onPress={()=>props.onSelect(props.response)}
+    >
       <Text style={topicItem.text}>{props.response.title}</Text>
       {/* <Text style={topicItem.text}>{props.response.type} / {props.response.location}</Text> */}
 
