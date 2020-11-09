@@ -15,8 +15,8 @@ export const JobItem = (props) => {
         source={{ html: props.selectedJobs.description}}
       />
       <View style = {{flexDirection :'row',justifyContent :'space-around'}}>
-        <Button title="AddToFavorites" onPress = {props.onJobSave} />
-        
+        <Button title="Add to Favorites" onPress = {props.onJobSave} />
+        <Button title="Go Favorites" onPress = {props.goFavorites} />
       </View>
     </View>
   );

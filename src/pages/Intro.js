@@ -35,12 +35,11 @@ export const Intro = (props) => {
   }
   )
   function onJobSave (){
-   
-    setModalFlag(false)
+    alert('on JobSave')
   }
-  function onJobDetails(){
-    props.navigation.navigate('JobDetails', {selectedJobData : selectedJobs})
-    setModalFlag(false)
+  function goFavorites(){
+    alert('Go Favorites')
+    props.navigation.navigate('SavedJobs')
   }
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}>
@@ -73,9 +72,8 @@ export const Intro = (props) => {
       <Modal isVisible={modalFlag} onBackdropPress={() => setModalFlag(false)}>
         <JobItem 
           selectedJobs={selectedJobs} 
-          onJobSave = {onJobSave} 
-          onJobDetails = {onJobDetails}
-
+          onJobSave = {onJobSave}
+          goFavorites = {goFavorites}
         />
       </Modal>
     </SafeAreaView>
