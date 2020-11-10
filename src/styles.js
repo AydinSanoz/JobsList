@@ -52,7 +52,7 @@ export const jobItem = StyleSheet.create({
 
 export const favoritesItem = StyleSheet.create({
     container:{
-        height : Dimensions.get('window').height / 2 ,
+        height : Dimensions.get('window').height *0.90 ,
         margin :5,
         padding:5,
 

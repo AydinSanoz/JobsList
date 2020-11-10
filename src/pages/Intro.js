@@ -61,7 +61,7 @@ export const Intro = (props) => {
             fontWeight: 'bold',
             color: 'white',
           }}>
-          🔥 JOB LIST 🔥
+          🔥 JOB CENTER 🔥
         </Text>
         {isLoading ? (
           <ActivityIndicator size="large" />
