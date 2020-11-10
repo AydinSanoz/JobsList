@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import {Intro,JobDetails,Jobs,SavedJobs, } from './pages'
+import {Intro,Jobs,Favorites} from './pages'
 
 const Stack = createStackNavigator();
 const Router = () => {
@@ -10,8 +10,7 @@ const Router = () => {
       <Stack.Navigator>
         <Stack.Screen name="Intro" component={Intro} />
         <Stack.Screen name="Jobs" component={Jobs} />
-        <Stack.Screen name="SavedJobs" component={SavedJobs} />
-        <Stack.Screen name="JobDetails" component={JobDetails} />
+        <Stack.Screen name="Favorites" component={Favorites} />
       </Stack.Navigator>
     </NavigationContainer>
   );

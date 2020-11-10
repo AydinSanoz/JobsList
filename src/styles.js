@@ -15,11 +15,12 @@ export const topicItem = StyleSheet.create({
        color :'white'
        
 
-    }
+    },
 
-})
+});
 
 export const jobItem = StyleSheet.create({
+
     container:{
        margin:10,
        padding: 5,
@@ -39,13 +40,38 @@ export const jobItem = StyleSheet.create({
     textLocation:{
         fontSize: 20,
         margin : 10,
-
+        
     },
     descContainer:{
         margin:10,
         borderTopColor : 'black',
         borderTopWidth : 3,
-       
-    }
-    
-})
+        
+    },  
+});
+
+export const favoritesItem = StyleSheet.create({
+    container:{
+        height : Dimensions.get('window').height / 2 ,
+        margin :5,
+        padding:5,
+
+    },
+    textTitle:{
+        margin:3,
+        padding:10,
+        fontWeight: 'bold',
+        textAlign : 'center',
+        fontSize : 30 ,
+        
+    },
+    textLocation:{
+        marginBottom :10,
+        fontSize: 20 ,
+        
+        textDecorationLine : 'underline',
+    },
+    textDesc:{
+        //
+    },
+});

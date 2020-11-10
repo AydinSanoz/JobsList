@@ -25,7 +25,7 @@ export const TopicItem = (props) => {
   return (
     <TouchableOpacity 
       style={[topicItem.container, {backgroundColor: colors[randomIndex]}]} 
-      onPress={()=>props.onSelect(props.response)}
+      onPress = {()=> props.onSelect(props.response)}
     >
       <Text style={topicItem.text}>{props.response.title}</Text>
       {/* <Text style={topicItem.text}>{props.response.type} / {props.response.location}</Text> */}

@@ -6,11 +6,12 @@ import {
   ScrollView,
   Alert,
   ActivityIndicator,
+  Button,
 } from 'react-native';
 import { JobItem, TopicItem } from '../components';
 import Axios from 'axios';
 import Modal from 'react-native-modal';
-import {WebView} from 'react-native-webview'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const Intro = (props) => {
   const [jobsData, setJobsData] = useState([]);
@@ -27,19 +28,28 @@ export const Intro = (props) => {
     fetchData();
   }, []);
 
-  const selectJob = ((t) => {
-   
-    setSelectedJobs(t)
+  function selectJob(val) {
+    setSelectedJobs(val);
     setModalFlag(true);
+  }
+
+  const onJobSave = async () => {
     
+    let savedJobList = await AsyncStorage.getItem('@SAVED_JOBS');
+    savedJobList = savedJobList == null ? [] : JSON.parse(savedJobList);
+    
+    const updatedJobList = [...savedJobList, selectedJobs];
+    console.log("Intro -> updatedJobList", updatedJobList)
+
+    AsyncStorage.setItem('@SAVED_JOBS', JSON.stringify(updatedJobList));
+
+    setModalFlag(false);
   }
-  )
-  function onJobSave (){
-    alert('on JobSave')
-  }
-  function goFavorites(){
-    alert('Go Favorites')
-    props.navigation.navigate('SavedJobs')
+
+  
+
+  function goFavorites() {
+    props.navigation.navigate('SavedJobs');
   }
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}>
@@ -59,23 +69,21 @@ export const Intro = (props) => {
           <ScrollView showsHorizontalScrollIndicator={false}>
             {jobsData.map((res) => {
               return (
-                <TopicItem
-                  key = {res.id}
-                  response={res}
-                  onSelect={selectJob}
-                />
+                <TopicItem key={res.id} response={res} onSelect={selectJob} />
               );
             })}
           </ScrollView>
         )}
       </View>
       <Modal isVisible={modalFlag} onBackdropPress={() => setModalFlag(false)}>
-        <JobItem 
-          selectedJobs={selectedJobs} 
-          onJobSave = {onJobSave}
-          goFavorites = {goFavorites}
-        />
+        <JobItem selectedJobs={selectedJobs} onJobSave={onJobSave} />
       </Modal>
+      <Button
+        title="Favorites"
+        onPress={() => {
+          props.navigation.navigate('Favorites');
+        }}
+      />
     </SafeAreaView>
   );
 };

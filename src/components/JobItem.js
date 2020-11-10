@@ -4,19 +4,15 @@ import { jobItem } from '../styles';
 import { WebView } from 'react-native-webview';
 
 export const JobItem = (props) => {
-
   return (
     <View style={jobItem.container}>
       <Text style={jobItem.textTitle}>{props.selectedJobs.title}</Text>
       <Text style={jobItem.textLocation}>
         {props.selectedJobs.type} / {props.selectedJobs.location}
       </Text>
-      <WebView
-        source={{ html: props.selectedJobs.description}}
-      />
-      <View style = {{flexDirection :'row',justifyContent :'space-around'}}>
-        <Button title="Add to Favorites" onPress = {props.onJobSave} />
-        <Button title="Go Favorites" onPress = {props.goFavorites} />
+      <WebView source={{ html: props.selectedJobs.description }} />
+      <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+        <Button title="Add to Favorites" onPress={props.onJobSave} />
       </View>
     </View>
   );
