@@ -34,12 +34,13 @@ Purpose of the this portfolio building will include my React Native Projects
 
 - Part 8 - React Redux -->
 
+
 ##  React-Native Projects
 
   |Project 0012|Project 0013|Project 0014|
   |---|---|---|
   |JobCenter|MapRestaurants|Game_Tırı_Vırı|
-  |<img src = './ScreenShots/out.gif> | <img src = '#'>|<img src = '#'>|
+  |<img src = './ScreenShots/out.gif'> | <img src = '#'>|<img src = '#'>|
   |AsyncStorage|Map|FireBase|
   © carpediem|© carpediem|© carpediem
 
