@@ -34,19 +34,19 @@ export const Intro = (props) => {
   }
 
   const onJobSave = async () => {
-    
     let savedJobList = await AsyncStorage.getItem('@SAVED_JOBS');
     savedJobList = savedJobList == null ? [] : JSON.parse(savedJobList);
-    
+    console.log('Intro -> savedJobList', savedJobList);
+
     const updatedJobList = [...savedJobList, selectedJobs];
-    console.log("Intro -> updatedJobList", updatedJobList)
+    console.log('Intro -> selectedJobsId', selectedJobs.id);
+    const indexOfItem = savedJobList.findIndex((i) => i.id === selectedJobs.id);
 
-    AsyncStorage.setItem('@SAVED_JOBS', JSON.stringify(updatedJobList));
-
-    setModalFlag(false);
-  }
-
-  
+    indexOfItem == -1
+      ? AsyncStorage.setItem('@SAVED_JOBS', JSON.stringify(updatedJobList)) &
+        setModalFlag(false)
+      : Alert.alert('WELCOME JOB LIST', 'Recorded Before');
+  };
 
   function goFavorites() {
     props.navigation.navigate('SavedJobs');
@@ -78,12 +78,16 @@ export const Intro = (props) => {
       <Modal isVisible={modalFlag} onBackdropPress={() => setModalFlag(false)}>
         <JobItem selectedJobs={selectedJobs} onJobSave={onJobSave} />
       </Modal>
+     
       <Button
         title="Favorites"
         onPress={() => {
           props.navigation.navigate('Favorites');
         }}
       />
+
+      
+     
     </SafeAreaView>
   );
 };

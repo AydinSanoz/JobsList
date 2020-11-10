@@ -3,7 +3,7 @@ import { SafeAreaView, View, FlatList, Button} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {FavoritesItem} from '../components'
 
-export const Favorites = () => {
+export const Favorites = (props) => {
   const [favorites, setFavorites] = useState([]);
   useEffect(()=>{
     getData()
@@ -43,7 +43,15 @@ export const Favorites = () => {
           
         />
       </View>
+      <View style = {{flexDirection : 'row', justifyContent : 'space-around'}}>
       <Button title = 'Remove All' onPress= {removeAll}/>
+      <Button
+        title="Go Back"
+        onPress={() => {
+          props.navigation.goBack();
+        }}
+      />
+       </View>
       
       
     </SafeAreaView>
